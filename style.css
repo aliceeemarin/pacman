@@ -1,0 +1,149 @@
+*, *::after, *::before {
+    box-sizing: border-box;
+}
+
+@font-face {
+    font-family: "emulogic-zrew";
+    src: url("emulogic-zrew-webfont.woff");
+    src: url("emulogic-zrew-webfont.woff") format("woff"),
+    }
+
+:root {
+	--cell-size: 100px;
+
+	--color: #86076b; /* for hover */
+	--color-set: #65a531; /* background*/ 
+	--l: 10px; /* X line-width */
+}
+
+body {
+	margin: 0;
+    background-color: rgba(0, 0, 0, 0.192);
+    background-blend-mode: multiply;
+    background-image: url(bg_2.gif);
+    background-position: center;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+.board {
+	width: 100vw;
+	height: 100vh;
+	display: grid;
+	justify-content: center;
+	align-content: center;
+	justify-items: center;
+	align-items: center;
+	grid-template-columns: repeat(3, auto);
+    background-image: url(tv_2.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.cell { /* literally cell by cell */
+	width: var(--cell-size);
+	height: var(--cell-size);
+	border: 5px solid rgba(0, 0, 0, 0); /* thiccness of border */
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: relative;
+	cursor: pointer;
+}
+
+/* remove border for edges */
+.cell:nth-child(1), .cell:nth-child(2), .cell:nth-child(3) {
+	border-top: none;
+}
+
+.cell:nth-child(1), .cell:nth-child(4), .cell:nth-child(7) {
+	border-left: none;
+}
+
+.cell:nth-child(3), .cell:nth-child(6), .cell:nth-child(9) {
+	border-right: none;
+}
+
+.cell:nth-child(7), .cell:nth-child(8), .cell:nth-child(9) {
+	border-bottom: none;
+}
+
+.cell.x, .cell.circle {
+	cursor: not-allowed;
+}
+
+/* for cross */
+.board.x .cell:not(.circle):not(.x):hover {
+	background-image: url(pacman.png);
+	background-size: 80% 80%;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+/* for cross (set) */
+.cell:not(.circle).x {
+	background-image: url(pacman.png);
+	background-size: 80% 80%;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+/* for circle */
+.board.circle .cell:not(.circle):not(.x):hover {	
+	background-image: url(ghost.png);
+    background-size: 80% 80%;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+/* for circle (set) */
+.cell:not(.x).circle {
+	background-image: url(ghost.png);
+    background-size: 80% 80%;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+.winning-message {
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+    background-color: rgb(0, 0, 0);
+    background-image: url(pacmanwins.gif);
+    background-position: top;
+    background-repeat: no-repeat;
+/*  background-image: url(pacman_1.gif);
+    background-position: center;*/
+	justify-content: center;
+	align-items: center;
+	color: white;
+	font-size: 2rem;
+	font-family: 'emulogic-zrew', Courier, monospace;
+	flex-direction: column;
+}
+
+/*restart button*/
+
+.winning-message button { 
+    font-family: 'emulogic-zrew', Courier, monospace;
+    margin-top: 2rem;
+/*	border-radius: 10px;*/
+	font-size: 2rem;
+/*	background-color: rgb(177, 0, 0); */
+/*	border: 1px solid var(--color-set);*/
+/*	padding: .25em .5em;*/
+	cursor: pointer;
+}
+
+.winning-message button:hover {
+	background-color: yellow;
+	color: rgb(0, 0, 0);
+/*	border-color: white; */
+}
+
+.winning-message.show {
+	display: flex;
+}
